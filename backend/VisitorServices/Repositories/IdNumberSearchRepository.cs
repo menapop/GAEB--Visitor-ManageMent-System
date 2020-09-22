@@ -20,5 +20,13 @@ namespace VisitorServices.Repositories
             var visitor = _db.VisitorInformations.SingleOrDefault(v => v.IdNumber == idNumber);
             return visitor;
         }
+
+        public BindUser SearchInBindUser(string idNumber)
+        {
+            var visitor = _db.VisitorInformations.SingleOrDefault(v => v.IdNumber == idNumber);
+
+            var bindUser = _db.BindUsers.SingleOrDefault(v => v.VisitorInformationId == visitor.Id);
+            return bindUser;
+        }
     }
 }

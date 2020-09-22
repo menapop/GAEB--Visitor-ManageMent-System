@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Internal;
 
 namespace VisitorServices.ViewModels
@@ -15,7 +16,7 @@ namespace VisitorServices.ViewModels
         public string Email { get; set; }
         public string Governrate { get; set; }
         public string Address { get; set; }
-        public FormFile Image { get; set; }
+        public IFormFile Image { get; set; }
 
     }
 }

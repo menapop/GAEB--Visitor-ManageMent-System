@@ -5,32 +5,51 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Net.Http.Headers;
+using VisitorServices.Data;
 using VisitorServices.Entities;
 using VisitorServices.ViewModels;
 
 namespace VisitorServices.Repositories
 {
-    // public class AddVisitorInformationRepository : IAddVisitorInformationRepository
-    // {
-    //     public VisitorInformation AddVisitorInformation(VisitorInformationViewModel visitorInformation)
-    //     {
-    //         var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), "NationalIdImages");
-    //
-    //         if (visitorInformation.Image.Length > 0)
-    //         {
-    //             var fileName = visitorInformation.Image.FileName;
-    //             var fullPath = Path.Combine(pathToSave, fileName);
-    //
-    //             using (var stream = new FileStream(fullPath, FileMode.Create))
-    //             {
-    //                 visitorInformation.Image.CopyTo(stream);
-    //             }
-    //
-    //         }
-    //
-    //
-    //
-    //
-    //     }
-    // }
+    public class AddVisitorInformationRepository : IAddVisitorInformationRepository
+    {
+        private readonly ApplicationDbContext _db;
+
+        public AddVisitorInformationRepository(ApplicationDbContext db)
+        {
+            _db = db;
+        }
+        public VisitorInformationViewModel AddVisitorInformation(VisitorInformationViewModel visitorInformationViewModel)
+        {
+            var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/NationalIdImages");
+
+            if (visitorInformationViewModel.Image != null)
+            {
+                var fileName = visitorInformationViewModel.Image.FileName;
+                var fullPath = Path.Combine(pathToSave, fileName);
+    
+                using (var stream = new FileStream(fullPath, FileMode.Create))
+                {
+                    visitorInformationViewModel.Image.CopyTo(stream);
+                }
+    
+            }
+
+            var visitorInformation = new VisitorInformation
+            {
+                Name = visitorInformationViewModel.Name,
+                Address = visitorInformationViewModel.Address,
+                Email = visitorInformationViewModel.Email,
+                Governrate = visitorInformationViewModel.Governrate,
+                IdNumber = visitorInformationViewModel.IdNumber,
+                Phone = visitorInformationViewModel.Phone
+            };
+
+            _db.VisitorInformations.Add(visitorInformation);
+            _db.SaveChanges();
+
+            return visitorInformationViewModel;
+
+        }
+    }
 }

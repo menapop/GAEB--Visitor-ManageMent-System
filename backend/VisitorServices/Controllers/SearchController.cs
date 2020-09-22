@@ -10,18 +10,18 @@ using VisitorServices.Repositories;
 namespace VisitorServices.Controllers
 {
     [ApiController]
-    [Route("search")]
+    [Route("api/[Controller]")]
     public class SearchController : Controller
     {
-        private readonly IdNumberSearchRepository _repo;
+        private readonly IIdNumberSearchRepository _repo;
 
-        public SearchController(IdNumberSearchRepository repo)
+        public SearchController(IIdNumberSearchRepository repo)
         {
             _repo = repo;
         }
 
-        [HttpPost]
-        public async Task<ActionResult<VisitorInformation>> SearchByIdNumber(string idNumber)
+        [HttpGet("{idNumber}")]
+        public ActionResult<VisitorInformation> SearchByIdNumber(string idNumber)
         {
             if (idNumber == null)
             {
