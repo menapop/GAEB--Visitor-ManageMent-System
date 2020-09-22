@@ -17,5 +17,7 @@ namespace VisitorServices.Entities
         public string Governrate { get; set; }
         public string Address { get; set; }
         public BindUser BindUser { get; set; }
+
+
     }
 }
