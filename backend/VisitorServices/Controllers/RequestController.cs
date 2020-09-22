@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
+using Dapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using VisitorServices.ViewModels;
 
 namespace VisitorServices.Controllers
 {
@@ -14,42 +17,90 @@ namespace VisitorServices.Controllers
     {
         private readonly IConfiguration _configuration;
 
-        string _connectionString;
+        string _LookUpsconnectionString, _EmployeeconnectionString;
         public RequestController(IConfiguration configuration)
         {
             _configuration = configuration;
-            _connectionString= _configuration.GetConnectionString("MyConnectionString");
+            _LookUpsconnectionString = _configuration.GetConnectionString("LookUpsDB");
+            _EmployeeconnectionString= _configuration.GetConnectionString("EmployeeDB");
         }
         [HttpGet]
         [Route("GetCentralDepartments")]
-        public async Task<ActionResult<IEnumerable<TenderSchoolDto>>> GetCentralDepartments(GetTenderSchoolDto model)
+        public async Task<ActionResult<IEnumerable<CenteralDepartmentViewModel>>> GetCentralDepartments()
         {
             try
             {
-                using (var connection = new SqlConnection(_connectionString))
+                using (var connection = new SqlConnection(_LookUpsconnectionString))
                 {
                     connection.Open();
-                    string qr = @" SELECT * FROM TenderSchoolView where TenderId=@TenderId and 
-                    Cast(ReleaseDate as Date)>=  Cast(@From as Date )and 
-                    Cast(ReleaseDate as Date)<=Cast(@To as Date )
-                     ";
+                    string qr = @" select * from CentralDepartments 
+                       ";
+                    var res = await connection.QueryAsync<CenteralDepartmentViewModel>(qr);
+                    return Ok(res);
 
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+        }
+
+
+        [HttpGet]
+        [Route("GetEmployeesbyCentralDepartmentCode/{code}")]
+        public async Task<ActionResult<IEnumerable<EmployeeViewModel>>> GetEmployeesbyCentralDepartmentCode(string code)
+        {
+            try
+            {
+                using (var connection = new SqlConnection(_EmployeeconnectionString))
+                {
+                    connection.Open();
+                    string qr = @" select EmployeeNumber, EmployeeName from employeedata 
+                       where CentralAdministration=@CentralAdministration ";
                     var dictionary = new Dictionary<string, object>
                 {
                      {
-                        "@TenderId",model.TenderId
-                     },
-                     {
-                        "@From",model.From
-                     },
-                     {
-                        "@To",model.To
+                        "@CentralAdministration", code
                      },
 
                 };
                     var parameters = new DynamicParameters(dictionary);
+                    var res = await connection.QueryAsync<EmployeeViewModel>(qr,parameters);
+                    return Ok(res);
 
-                    var res = await connection.QueryAsync<TenderSchoolDto>(qr, parameters);
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+        }
+
+
+
+        [HttpGet]
+        [Route("GetEmployeeEmail/{EmployeeNumber}")]
+        public async Task<ActionResult<string>> GetEmployeeEmail(int EmployeeNumber)
+        {
+            try
+            {
+                using (var connection = new SqlConnection(_EmployeeconnectionString))
+                {
+                    connection.Open();
+                    string qr = @" select  Email from employeedata 
+                       where EmployeeNumber=@EmployeeNumber ";
+                    var dictionary = new Dictionary<string, object>
+                {
+                     {
+                        "@EmployeeNumber", EmployeeNumber
+                     },
+
+                };
+                    var parameters = new DynamicParameters(dictionary);
+                    var res = await connection.QuerySingleAsync(qr, parameters);
                     return Ok(res);
 
                 }
