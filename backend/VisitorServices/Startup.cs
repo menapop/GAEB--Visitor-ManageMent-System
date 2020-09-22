@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using VisitorServices.Data;
+using VisitorServices.Repositories;
 
 namespace VisitorServices
 {
@@ -32,6 +33,8 @@ namespace VisitorServices
             {
                 config.UseSqlServer(Configuration.GetConnectionString("DefaultConnectionString"));
             });
+
+            services.AddScoped<IIdNumberSearchRepository, IdNumberSearchRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
