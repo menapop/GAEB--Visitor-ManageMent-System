@@ -16,6 +16,7 @@ namespace VisitorServices.Data
             
         }
 
+
         public DbSet<VisitorInformation> VisitorInformations { get; set; }
         public DbSet<BindUser> BindUsers { get; set; }
     }
