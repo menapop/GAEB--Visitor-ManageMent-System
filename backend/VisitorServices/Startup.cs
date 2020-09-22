@@ -25,7 +25,7 @@ namespace VisitorServices
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddDbContext<ApplicationDbContext>(config =>
             {
-                config.UseSqlServer(Configuration.GetConnectionString("DefaultConnectionString"));
+                config.UseSqlServer(Configuration.GetConnectionString("DefaultConnectionStringNasser"));
             });
 
             services.AddScoped<IIdNumberSearchRepository, IdNumberSearchRepository>();

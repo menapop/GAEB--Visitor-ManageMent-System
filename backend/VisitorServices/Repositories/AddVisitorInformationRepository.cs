@@ -22,10 +22,11 @@ namespace VisitorServices.Repositories
         public VisitorInformationViewModel AddVisitorInformation(VisitorInformationViewModel visitorInformationViewModel)
         {
             var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/NationalIdImages");
+            var fileName = string.Empty;
 
             if (visitorInformationViewModel.Image != null)
             {
-                var fileName = visitorInformationViewModel.Image.FileName;
+                fileName = visitorInformationViewModel.Image.FileName;
                 var fullPath = Path.Combine(pathToSave, fileName);
     
                 using (var stream = new FileStream(fullPath, FileMode.Create))
@@ -42,7 +43,8 @@ namespace VisitorServices.Repositories
                 Email = visitorInformationViewModel.Email,
                 Governrate = visitorInformationViewModel.Governrate,
                 IdNumber = visitorInformationViewModel.IdNumber,
-                Phone = visitorInformationViewModel.Phone
+                Phone = visitorInformationViewModel.Phone,
+                Image = fileName
             };
 
             _db.VisitorInformations.Add(visitorInformation);

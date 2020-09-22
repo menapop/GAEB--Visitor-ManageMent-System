@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using VisitorServices.Entities;
 using VisitorServices.Repositories;
+using VisitorServices.ViewModels;
 
 namespace VisitorServices.Controllers
 {
@@ -21,21 +22,43 @@ namespace VisitorServices.Controllers
         }
 
         [HttpGet("{idNumber}")]
-        public ActionResult<VisitorInformation> SearchByIdNumber(string idNumber)
+        public ActionResult<VisitorInformationForReturnStatus> SearchByIdNumber(string idNumber)
         {
+            VisitorInformationForReturnStatus visitorInformationForReturnStatus = null;
             if (idNumber == null)
             {
                 return BadRequest();
             }
 
             var visitor = _repo.SearchByIdNumber(idNumber);
+            var userBind = _repo.SearchInBindUser(idNumber);
 
             if (visitor == null)
             {
-                return NotFound();
+                visitorInformationForReturnStatus = new VisitorInformationForReturnStatus
+                {
+                    VisitorInformation = null,
+                    Status = "User Not Found"
+                };
+            }
+            else if (userBind != null)
+            {
+                visitorInformationForReturnStatus = new VisitorInformationForReturnStatus
+                {
+                    VisitorInformation = visitor,
+                    Status = "User is Blocked"
+                };
+            }
+            else
+            {
+                visitorInformationForReturnStatus = new VisitorInformationForReturnStatus
+                {
+                    VisitorInformation = visitor,
+                    Status = "User Found"
+                };
             }
 
-            return visitor;
+            return visitorInformationForReturnStatus;
         }
     }
 }

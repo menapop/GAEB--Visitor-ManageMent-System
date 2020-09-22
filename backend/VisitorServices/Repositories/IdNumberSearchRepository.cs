@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using VisitorServices.Data;
 using VisitorServices.Entities;
+using VisitorServices.ViewModels;
 
 namespace VisitorServices.Repositories
 {
@@ -23,9 +24,14 @@ namespace VisitorServices.Repositories
 
         public BindUser SearchInBindUser(string idNumber)
         {
-            var visitor = _db.VisitorInformations.SingleOrDefault(v => v.IdNumber == idNumber);
 
-            var bindUser = _db.BindUsers.SingleOrDefault(v => v.VisitorInformationId == visitor.Id);
+            var visitor = SearchByIdNumber(idNumber);
+            BindUser bindUser = null;
+            if (visitor != null)
+            {
+                bindUser = _db.BindUsers.SingleOrDefault(v => v.VisitorInformationId == visitor.Id);
+            }
+
             return bindUser;
         }
     }
