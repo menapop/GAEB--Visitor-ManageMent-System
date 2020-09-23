@@ -19,7 +19,8 @@ export class RequestComponent implements OnInit ,OnDestroy{
   public Directions:LookupVM[]=[];
   public Employees:any[]=[];
   constructor(private frm: FormBuilder,private acntsrv:RequestService,private lokupSRV:LookUpService) {
-    this.request = { empId:null,direction: '', branch: '', employee: '' , reason: '',subject:'' };
+    var vid=localStorage.getItem('nameid');
+    this.request = { visitorId :vid ,empId:null,direction: '', branch: '', employee: '' , reason: '',subject:'' };
   }
 
   ngOnDestroy(): void {

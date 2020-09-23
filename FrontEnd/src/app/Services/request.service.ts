@@ -11,6 +11,6 @@ export class RequestService {
 
   AddRequest(request:Request):Observable<any>
   {
-  return this.httpclient.get('http://localhost:50733/api/Categories');
+  return this.httpclient.post('https://localhost:44333/api/Email/sendemail',request);
   }
 }

@@ -5,4 +5,5 @@ export class Request {
     subject:string;
     empId:number;
     employee: string;
+    visitorId:string;
 }
