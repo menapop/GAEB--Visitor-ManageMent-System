@@ -33,6 +33,8 @@ namespace VisitorServices
             });
             
             services.AddScoped<IIdNumberSearchRepository, IdNumberSearchRepository>();
+            services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+            services.AddScoped<ICenteralDepartmentRepository, CenteralDepartmentRepository>();
             services.AddScoped<IAddVisitorInformationRepository, AddVisitorInformationRepository>();
 
             services.AddAuthentication(config =>

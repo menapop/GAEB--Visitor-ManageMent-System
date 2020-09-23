@@ -35,7 +35,7 @@ namespace VisitorServices.Repositories
 
                         };
                 var parameters = new DynamicParameters(dictionary);
-                var res = await connection.QuerySingleAsync(qr, parameters);
+                var res = await connection.QuerySingleAsync<string>(qr, parameters);
                 return res;
 
             }
