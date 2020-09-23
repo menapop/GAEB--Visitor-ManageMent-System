@@ -8,6 +8,6 @@ namespace VisitorServices.Repositories
 {
    public  interface IEmailRepository
     {
-        bool SendEmail(SendEmailViewModel email);
+        Task<bool> SendEmail(SendEmailViewModel email);
     }
 }

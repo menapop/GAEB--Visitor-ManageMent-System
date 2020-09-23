@@ -11,6 +11,8 @@ namespace VisitorServices.ViewModels
         public string mailsubject { get; set; }
         public string mailbody { get; set; }
 
+        public int VisitorId { get; set; }
+
        
     }
 }

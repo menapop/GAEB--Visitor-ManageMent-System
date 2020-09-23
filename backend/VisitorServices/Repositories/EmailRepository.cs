@@ -7,6 +7,8 @@ using MailKit.Net.Smtp;
 using MimeKit;
 using System.Threading.Tasks;
 using VisitorServices.ViewModels;
+using VisitorServices.Data;
+using VisitorServices.Entities;
 
 namespace VisitorServices.Repositories
 {
@@ -14,19 +16,25 @@ namespace VisitorServices.Repositories
     {
         private readonly EmailConfiguration mailconfig;
         private readonly IConfiguration _configuration;
-        public EmailRepository(IConfiguration configuration)
+        private readonly ApplicationDbContext _db;
+        private readonly IEmployeeRepository _EmailRepository;
+        public EmailRepository(IConfiguration configuration, ApplicationDbContext db, IEmployeeRepository EmailRepository)
         {
             _configuration = configuration;
             mailconfig = _configuration.GetSection("MailConfiguration").Get<EmailConfiguration>();
+            _db = db;
+            _EmailRepository = EmailRepository;
         }
-        public bool SendEmail(SendEmailViewModel email)
+        public async Task<bool> SendEmail(SendEmailViewModel email)
         {
+            var EmployeeEmail =  await _EmailRepository.GetEmployeeEmailByEmployeeNumber(email.EmployeeNumber);
+
             MimeMessage message = new MimeMessage();
             MailboxAddress from = new MailboxAddress("Admin",
            mailconfig.Sender);
             message.From.Add(from);
             MailboxAddress to = new MailboxAddress("User",
-            email.ToEmail);
+           EmployeeEmail);
             message.To.Add(to);
             message.Subject = email.mailsubject;
 
@@ -47,6 +55,18 @@ namespace VisitorServices.Repositories
             client.Send(message);
             client.Disconnect(true);
             client.Dispose();
+            var mail = new Mails
+            {
+                EmployeeNumber=email.EmployeeNumber,
+                MailMessage=email.mailbody,
+                MailSubject= email.mailsubject,
+                VisitorId=email.VisitorId,
+                SendTime=DateTime.Now
+            };
+
+              await _db.Mails.AddAsync(mail);
+             _db.SaveChanges();
+
             return true;
         }
 

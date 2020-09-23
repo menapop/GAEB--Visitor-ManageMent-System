@@ -21,11 +21,11 @@ namespace VisitorServices.Controllers
         }
         [HttpPost]
         [Route("SendEmail")]
-        public ActionResult<bool> SendEmail(SendEmailViewModel email)
+        public async  Task<ActionResult<bool>> SendEmail(SendEmailViewModel email)
         {
             try
             {
-                var res = _EmailRepository.SendEmail(email);
+                var res = await _EmailRepository.SendEmail(email);
                 return Ok(res);
 
 
