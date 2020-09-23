@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Http.Internal;
 
 namespace VisitorServices.ViewModels
 {
-    public class VisitorInformationViewModel
+    public class VisitorInformationForReturn
     {
         public string Name { get; set; }
         public string IdNumber { get; set; }
@@ -16,7 +16,7 @@ namespace VisitorServices.ViewModels
         public string Email { get; set; }
         public string Governrate { get; set; }
         public string Address { get; set; }
-        public IFormFile Image { get; set; }
+        public string Image { get; set; }
 
     }
 }

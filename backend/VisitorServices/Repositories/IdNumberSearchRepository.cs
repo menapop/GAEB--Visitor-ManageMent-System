@@ -12,27 +12,14 @@ namespace VisitorServices.Repositories
     {
         private readonly ApplicationDbContext _db;
 
-        public IdNumberSearchRepository(ApplicationDbContext db)
-        {
+        public IdNumberSearchRepository(ApplicationDbContext db) =>
             _db = db;
-        }
-        public VisitorInformation SearchByIdNumber(string idNumber)
-        {
-            var visitor = _db.VisitorInformations.SingleOrDefault(v => v.IdNumber == idNumber);
-            return visitor;
-        }
 
-        public BindUser SearchInBindUser(string idNumber)
-        {
 
-            var visitor = SearchByIdNumber(idNumber);
-            BindUser bindUser = null;
-            if (visitor != null)
-            {
-                bindUser = _db.BindUsers.SingleOrDefault(v => v.VisitorInformationId == visitor.Id);
-            }
+        public VisitorInformation SearchByIdNumber(string idNumber) =>
+            _db.VisitorInformations.SingleOrDefault(v => v.IdNumber == idNumber);
 
-            return bindUser;
-        }
+        public BindUser SearchInBindUser(string idNumber, int visitorId) => _db.BindUsers.SingleOrDefault(v => v.VisitorInformationId == visitorId);
+
     }
 }

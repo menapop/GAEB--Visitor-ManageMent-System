@@ -10,6 +10,6 @@ namespace VisitorServices.Repositories
     public interface IIdNumberSearchRepository
     {
         VisitorInformation SearchByIdNumber(string idNumber);
-        BindUser SearchInBindUser(string idNumber);
+        BindUser SearchInBindUser(string idNumber, int visitorId);
     }
 }

@@ -1,3 +1,6 @@
+import { UserService } from './../../../Services/user.service';
+import { TokenAndMessageReturn } from './../../../shared/TokenAndMessageReturn';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 
 
@@ -10,10 +13,24 @@ import { Component, OnInit } from '@angular/core';
 export class SearchComponent implements OnInit {
 
   public IdentificationNum:string=''
-  constructor() { }
+  searchForm: FormGroup;
+
+  constructor(private userService: UserService, private fb: FormBuilder) { }
   
   ngOnInit(): void {
-   
+    this.searchForm = this.fb.group({
+      idNumber: [""]
+    })
+  }
+
+  search() {
+    this.userService.GetSearch(this.searchForm.get("idNumber").value).subscribe(
+      (res: TokenAndMessageReturn) => {
+        if(res.statusCode == 200 && !Boolean(localStorage.getItem("token")))
+          localStorage.setItem('token', res.token);
+      },
+      console.log
+    );
   }
 }
 

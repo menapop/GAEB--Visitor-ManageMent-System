@@ -19,7 +19,7 @@ namespace VisitorServices.Repositories
         {
             _db = db;
         }
-        public VisitorInformationViewModel AddVisitorInformation(VisitorInformationViewModel visitorInformationViewModel)
+        public VisitorInformation AddVisitorInformation(VisitorInformationForCreation visitorInformationViewModel)
         {
             var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/NationalIdImages");
             var fileName = string.Empty;
@@ -50,7 +50,7 @@ namespace VisitorServices.Repositories
             _db.VisitorInformations.Add(visitorInformation);
             _db.SaveChanges();
 
-            return visitorInformationViewModel;
+            return visitorInformation;
 
         }
     }

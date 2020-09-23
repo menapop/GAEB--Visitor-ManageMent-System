@@ -5,7 +5,7 @@ import { Routes ,RouterModule } from '@angular/router';
 import {InputTextModule} from 'primeng/inputtext';
 import { InputNumberModule } from 'primeng/inputnumber';
 import {CalendarModule} from 'primeng/calendar';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 const routes: Routes = [
   {path:'**' ,component:SearchComponent}
@@ -20,7 +20,8 @@ const routes: Routes = [
     FormsModule,
     ButtonModule,
     [RouterModule.forChild(routes)],
-    CommonModule
+    CommonModule,
+    ReactiveFormsModule
   ]
 })
 export class SearchModule { }

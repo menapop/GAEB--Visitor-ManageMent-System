@@ -1,3 +1,4 @@
+import { TokenAndMessageReturn } from './../../../shared/TokenAndMessageReturn';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { User } from '../../../shared/user'
@@ -50,7 +51,10 @@ export class RegisterationComponent implements OnInit ,OnDestroy{
   addAccount()
   {
     this.acntsrv.AddAccount(this.user).subscribe(
-      res => {alert('User Added'); },
+      (res: TokenAndMessageReturn) => {
+        if(res.statusCode == 201 && !Boolean(localStorage.getItem("token")))
+          localStorage.setItem('token', res.token);
+       },
       err => {console.log(err); }
     );
   }
