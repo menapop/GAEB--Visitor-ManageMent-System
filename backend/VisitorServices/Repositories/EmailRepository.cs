@@ -27,7 +27,7 @@ namespace VisitorServices.Repositories
         }
         public async Task<bool> SendEmail(SendEmailViewModel email)
         {
-            var EmployeeEmail =  await _EmailRepository.GetEmployeeEmailByEmployeeNumber(email.EmployeeNumber);
+            var EmployeeEmail =  await _EmailRepository.GetEmployeeEmailByEmployeeNumber(email.empId);
 
             MimeMessage message = new MimeMessage();
             MailboxAddress from = new MailboxAddress("Admin",
@@ -36,11 +36,11 @@ namespace VisitorServices.Repositories
             MailboxAddress to = new MailboxAddress("User",
            EmployeeEmail);
             message.To.Add(to);
-            message.Subject = email.mailsubject;
+            message.Subject = email.subject;
 
             BodyBuilder bodyBuilder = new BodyBuilder();
            
-            bodyBuilder.TextBody = email.mailbody;
+            bodyBuilder.TextBody = email.reason;
 
             message.Body = bodyBuilder.ToMessageBody();
 
@@ -57,10 +57,10 @@ namespace VisitorServices.Repositories
             client.Dispose();
             var mail = new Mails
             {
-                EmployeeNumber=email.EmployeeNumber,
-                MailMessage=email.mailbody,
-                MailSubject= email.mailsubject,
-                VisitorId=email.VisitorId,
+                EmployeeNumber=email.empId,
+                MailMessage=email.reason,
+                MailSubject= email.subject,
+                VisitorId=email.visitorId,
                 SendTime=DateTime.Now
             };
 
