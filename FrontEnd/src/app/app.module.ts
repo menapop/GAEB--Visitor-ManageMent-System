@@ -18,12 +18,14 @@ import { InputSwitchModule } from 'primeng/inputswitch';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { FormsModule } from '@angular/forms';
 import { ProgressBarModule } from 'primeng/progressbar';
-import { LookUpService } from './Services/Lookup.service'
+import { LookUpService } from './Services/Lookup.service';
+import { MainComponent } from './Components/LayoutComponents/main/main.component'
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     FooterComponent,
+    MainComponent,
   ],
   imports: [
     BrowserModule,

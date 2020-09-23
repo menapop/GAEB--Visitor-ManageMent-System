@@ -44,32 +44,21 @@
   
             <div class="form-group">
               <label for="">المحافظه</label>
-              <input type="text" formControlName="governrate" [(ngModel)]="user.governrate"
-                [class.is-valid]="loginform.controls['governrate'].valid"
-                [class.is-invalid]="loginform.controls['governrate'].invalid &&loginform.controls['governrate'].touched"
-                class="form-control"
-                placeholder="ادخل اسم المحافظه">
-                <small id="emailHelpId" [hidden]="loginform.controls['governrate'].valid||loginform.controls['governrate'].untouched" class="form-text text-danger">خطأ</small>
-            </div>
-
-           
-
-            <div class="form-group">
-                <label for="">المركز</label>
-                <input type="text" formControlName="address" [(ngModel)]="user.address"
-                  [class.is-valid]="loginform.controls['address'].valid"
-                  [class.is-invalid]="loginform.controls['address'].invalid &&loginform.controls['address'].touched"
-                  class="form-control" placeholder="ادخل اسم المركز..">
-                  <small id="emailHelpId" [hidden]="loginform.controls['address'].valid||loginform.controls['address'].untouched" class="form-text text-danger">Invalid Password</small>
+                <p-dropdown [options]="cities"  (onChange)="onChange($event)" [(ngModel)]="user.governrate"  formControlName="governrate"   optionLabel="name"></p-dropdown>
               </div>
 
+              <div class="form-group">
+              <label for="">المركز</label>
+              <p-dropdown [options]="FilterdVillages" [(ngModel)]="user.address"  formControlName="address"   optionLabel="name"></p-dropdown>
+              </div>
+              
             <button type="submit" [disabled]="loginform.invalid" class="btn btn-primary">سجل</button>
           </form>
         </div>
       </div>
     </div>
   </div>
-  <p-dropdown [options]="cities" [(ngModel)]="selectedCity" optionLabel="name"></p-dropdown>
+ 
 
 
 

@@ -4,45 +4,44 @@
         <div class="col-lg-6">
           <form [formGroup]="loginform" (ngSubmit)="addRequest()" class="p-4" id="frm">
   
+  
             <div class="form-group">
               <label for="">الفرع</label>
-              <input type="text" formControlName="Branch" [(ngModel)]="request.branch"
-                [class.is-valid]="loginform.controls['Branch'].valid"
-                [class.is-invalid]="loginform.controls['Branch'].invalid &&loginform.controls['Branch'].touched"
-                class="form-control" placeholder="اسم الفرع..">
-                <small id="emailHelpId" [hidden]="loginform.controls['Branch'].valid||loginform.controls['Branch'].untouched" class="form-text text-danger">اختر فرع صحيح</small>
-            </div>
-  
-            <div class="form-group">
+                <p-dropdown [options]="Branches"  (onChange)="onChange($event)" [(ngModel)]="request.branch"  formControlName="Branch"   optionLabel="name"></p-dropdown>
+              </div>
+
+                <div class="form-group">
                 <label for="">الجهة</label>
-                <input type="text" formControlName="Direction" [(ngModel)]="request.direction"
-                  [class.is-valid]="loginform.controls['Direction'].valid"
-                  [class.is-invalid]="loginform.controls['Direction'].invalid &&loginform.controls['Direction'].touched"
-                  class="form-control" placeholder="ادخل اسم الجهة">
-                  <small id="emailHelpId" [hidden]="loginform.controls['Direction'].valid||loginform.controls['Direction'].untouched" class="form-text text-danger">اختر جهة صحيحه</small>
+                  <p-dropdown [options]="Directions"  (onChange)="onChange2($event)" [(ngModel)]="request.direction"  formControlName="Direction"   optionLabel="name"></p-dropdown>
+                </div>
+
+
+              <div class="form-group">
+              <label for="">الموظف</label>
+                <p-dropdown [options]="Employees"  (onChange)="onChange2($event)" [(ngModel)]="request.empId"  formControlName="Employee"   optionLabel="employeeName"></p-dropdown>
+              </div>
+
+
+
+              <div class="form-group">
+                <label for="">سبب التوجه</label>
+                <input type="email"  class="form-control" formControlName="Subject" [(ngModel)]="request.subject"
+                  [class.is-valid]="loginform.controls['Subject'].valid"
+                  [class.is-invalid]="loginform.controls['Subject'].invalid &&loginform.controls['Subject'].touched"
+                  aria-describedby="emailHelpId" placeholder="ادخل السبب...">
+                <small id="emailHelpId" [hidden]="loginform.controls['Subject'].valid||loginform.controls['Subject'].untouched" class="form-text text-danger">لا يوجد  </small>
               </div>
 
             <div class="form-group">
-              <label for="">الموظف</label>
-              <input type="email"  class="form-control" formControlName="Employee" [(ngModel)]="request.employee"
-                [class.is-valid]="loginform.controls['Employee'].valid"
-                [class.is-invalid]="loginform.controls['Employee'].invalid &&loginform.controls['Employee'].touched"
-                aria-describedby="emailHelpId" placeholder="اسم الموظف...">
-              <small id="emailHelpId" [hidden]="loginform.controls['Employee'].valid||loginform.controls['Employee'].untouched" class="form-text text-danger">لا يوجد  </small>
-            </div>
-
-            <div class="form-group">
-                <label for="">سبب التوجه</label>
+                <label for="">تعليق</label>
                 <input type="email"  class="form-control" formControlName="Reason" [(ngModel)]="request.reason"
                   [class.is-valid]="loginform.controls['Reason'].valid"
-                  [class.is-invalid]="loginform.controls['Reason'].invalid &&loginform.controls['Employee'].touched"
-                  aria-describedby="emailHelpId" placeholder="ادخل السبب...">
+                  [class.is-invalid]="loginform.controls['Reason'].invalid &&loginform.controls['Reason'].touched"
+                  aria-describedby="emailHelpId" placeholder="ادخل تعليق...">
                 <small id="emailHelpId" [hidden]="loginform.controls['Reason'].valid||loginform.controls['Reason'].untouched" class="form-text text-danger">لا يوجد  </small>
               </div>
+            
 
-  
-            
-            
 
             <button type="submit" [disabled]="loginform.invalid" class="btn btn-primary">سجل</button>
           </form>
