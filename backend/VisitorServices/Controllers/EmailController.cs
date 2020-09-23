@@ -25,6 +25,7 @@ namespace VisitorServices.Controllers
         {
             try
             {
+
                 var res = await _EmailRepository.SendEmail(email);
                 return Ok(res);
 
