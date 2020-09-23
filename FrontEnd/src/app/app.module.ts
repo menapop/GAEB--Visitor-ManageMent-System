@@ -6,7 +6,6 @@ import { AppComponent } from './app.component';
 import { SearchModule } from './Components/search/search.module'
 import { RegisterationModule } from './Components/registeration/registeration.module'
 import { RequestModule } from './Components/request/request.module'
-import { BlackListUsersModule } from './Components/black-list-users/black-list-users.module';
 import { HeaderComponent } from './Components/LayoutComponents/header/header.component';
 import { FooterComponent } from './Components/LayoutComponents/footer/footer.component'
 import {AccordionModule} from 'primeng/accordion' 
@@ -33,7 +32,6 @@ import { LookUpService } from './Services/Lookup.service'
     RegisterationModule,
     RequestModule,
     FormsModule,
-    BlackListUsersModule,
     AccordionModule,
     BrowserAnimationsModule,
     InputTextModule,

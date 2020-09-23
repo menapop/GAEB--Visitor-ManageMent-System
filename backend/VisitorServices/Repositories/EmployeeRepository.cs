@@ -41,7 +41,7 @@ namespace VisitorServices.Repositories
             }
         }
 
-        public  async Task<IEnumerable<EmployeeViewModel>> GetEmployeesByCenteralDepartment(string code)
+        public async Task<IEnumerable<EmployeeViewModel>> GetEmployeesByCenteralDepartment(string code)
         {
             using (var connection = new SqlConnection(_EmployeeconnectionString))
             {
@@ -59,5 +59,7 @@ namespace VisitorServices.Repositories
                 var res = await connection.QueryAsync<EmployeeViewModel>(qr, parameters);
                 return res;
             }
+        }
     }
 }
+
