@@ -24,4 +24,16 @@ export class LookUpService {
   {
     return this.httpclient.get<LookupVM[]>('http://lookupapi2-001-site1.ctempurl.com/api/Villages');
   }
+
+
+  GetDirections():Observable<LookupVM[]>
+  {
+    return this.httpclient.get<LookupVM[]>('http://lookupapi2-001-site1.ctempurl.com/api/CentralDepartments');
+  }
+
+  GetEmployee(code:string):Observable<any>
+  {
+    return this.httpclient.get<LookupVM[]>('https://localhost:44333/api/request/GetEmployeesbyCentralDepartmentCode/'+code);
+  }
+
 }

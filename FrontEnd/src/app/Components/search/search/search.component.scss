@@ -1,0 +1,25 @@
+.page-container {
+    height: calc(100vh - 79.6px);
+    background-color: #eee;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}
+
+.idNumber-submit {
+    width: 100%;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.idNumber-container {
+    width: 100%;
+}
+
+span .idNumber {
+    height: 60px;
+    width: inherit;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}

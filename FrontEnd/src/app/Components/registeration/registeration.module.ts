@@ -25,6 +25,8 @@ const routes: Routes = [
     DropdownModule,
     [RouterModule.forChild(routes)],
     CommonModule
-  ]
+  ],
+  providers: []
+
 })
 export class RegisterationModule { }

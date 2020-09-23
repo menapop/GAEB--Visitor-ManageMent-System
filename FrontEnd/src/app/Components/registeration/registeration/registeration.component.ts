@@ -16,7 +16,8 @@ export class RegisterationComponent implements OnInit ,OnDestroy{
   public subscriptions:Subscription[]=[];
   public selectedCity:string='';
   public cities:LookupVM[]=[];
-  
+  public Villages:LookupVM[]=[];
+  public FilterdVillages:LookupVM[]=[];
   public user: User;
   public loginform: FormGroup;
   constructor(private frm: FormBuilder,private acntsrv:UserService,private lokupSRV:LookUpService) {
@@ -30,30 +31,55 @@ export class RegisterationComponent implements OnInit ,OnDestroy{
 
   ngOnInit(): void {
       this.loginform = this.frm.group({
-        Idnumber: ['', [ Validators.required, Validators.minLength(7)]],
+        Idnumber: ['', [ Validators.required, Validators.minLength(14),Validators.maxLength(14)]],
         UserName: ['', [ Validators.required, Validators.minLength(7)]],
-        Phone: ['', [ Validators.required, Validators.minLength(10)]],
+        Phone: ['', [ Validators.required, Validators.minLength(11),Validators.maxLength(14)]],
         Email: ['', [ Validators.required, Validators.email, Validators.minLength(7)]],
-        address: ['' , [Validators.required, Validators.minLength(6)]],
-        governrate: ['' , [Validators.required, Validators.minLength(6)]]
+        address: ['' , [Validators.required, Validators.minLength(3)]],
+        governrate: ['' , [Validators.required, Validators.minLength(3)]]
       });
 
       this.getCities();
+      this.getAddresses();
   }
 
   getCities()
   {
     this.subscriptions.push(this.lokupSRV.GetGovernrates().subscribe(
-         res=> {this.cities=res; console.log(JSON.stringify(res))} ,
+         res=> {this.cities=res; } ,
          err=>console.error(err)      
     ));
   }
+
+  onChange(event) {
+    console.log('event :' + event);
+    console.log(event.value);
+    this.filteredVillages(event.value.code)
+}
+
+  
+
+  getAddresses()
+  {
+    this.subscriptions.push(this.lokupSRV.GetVillages().subscribe(
+         res=> {this.Villages=res; } ,
+         err=>console.error(err)      
+    ));
+  }
+
+  filteredVillages(code:string)
+  {
+      this.FilterdVillages=this.Villages.filter(v=>v.code.includes(code))
+      console.log(this.FilterdVillages);
+  }
+
   addAccount()
   {
     this.acntsrv.AddAccount(this.user).subscribe(
       (res: TokenAndMessageReturn) => {
-        if(res.statusCode == 201 && !Boolean(localStorage.getItem("token")))
+        if(res.statusCode == 201)
           localStorage.setItem('token', res.token);
+          console.log("Created sussss")
        },
       err => {console.log(err); }
     );

@@ -1,3 +1,5 @@
+import { TokenInterceptor } from './shared/Security/token.interceptor';
+import { SecuriedPagesGuard } from './shared/Security/securied-pages.guard';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -18,12 +20,15 @@ import { InputSwitchModule } from 'primeng/inputswitch';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { FormsModule } from '@angular/forms';
 import { ProgressBarModule } from 'primeng/progressbar';
-import { LookUpService } from './Services/Lookup.service'
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { LookUpService } from './Services/Lookup.service';
+import { MainComponent } from './Components/LayoutComponents/main/main.component'
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     FooterComponent,
+    MainComponent,
   ],
   imports: [
     BrowserModule,
@@ -42,7 +47,11 @@ import { LookUpService } from './Services/Lookup.service'
     InputNumberModule,
     ProgressBarModule,
   ],
-  providers: [LookUpService],
+  providers: [
+    LookUpService,
+    SecuriedPagesGuard,
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },  
+  ],
   bootstrap: [AppComponent],
   
 })

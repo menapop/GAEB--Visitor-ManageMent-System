@@ -22,6 +22,7 @@ const routes: Routes = [
     [RouterModule.forChild(routes)],
     CommonModule,
     ReactiveFormsModule
-  ]
+  ],
+  providers: []
 })
 export class SearchModule { }

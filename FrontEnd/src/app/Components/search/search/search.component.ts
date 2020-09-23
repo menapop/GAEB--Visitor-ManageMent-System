@@ -25,23 +25,31 @@ export class SearchComponent implements OnInit {
 
   search() {
     this.userService.GetSearch(this.searchForm.get("idNumber").value).subscribe(
-      res => {
-        if(res.statusCode == 200 && !Boolean(localStorage.getItem("token")))
+      (res:TokenAndMessageReturn) => {
+        if(res.statusCode == 200)
          {
-          console.log("OK Accept")
+          console.log(res.message)
           localStorage.setItem('token', res.token);
           console.log(res.token);
+          this.router.navigate(['/request'])
          } 
         
-      },
-     err=> {
-        if(err.statusCode == 404 || err.message == 'User Not Found')
-        {
-            console.log("Error")
-           
-        }
+       },
 
-     }
+       (err)=> {      
+            
+        if(err.error.statusCode == 404)
+        {
+         this.router.navigate(['/register'])
+        } 
+
+        if(err.error.statusCode == 422)
+        {
+          console.log('اطلع بره يبن الكلب '+ err.error.message);
+          
+        } 
+
+      }
     );
   }
 }
