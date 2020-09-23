@@ -7,7 +7,7 @@ namespace VisitorServices.ViewModels
 {
     public class SendEmailViewModel
     {
-        public string ToEmail { get; set; }
+        public int EmployeeNumber { get; set; }
         public string mailsubject { get; set; }
         public string mailbody { get; set; }
 

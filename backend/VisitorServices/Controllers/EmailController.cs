@@ -21,7 +21,7 @@ namespace VisitorServices.Controllers
         }
         [HttpPost]
         [Route("SendEmail")]
-        public ActionResult<bool> GetCentralDepartments(SendEmailViewModel email)
+        public ActionResult<bool> SendEmail(SendEmailViewModel email)
         {
             try
             {
