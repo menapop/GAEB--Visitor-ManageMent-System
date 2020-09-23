@@ -14,7 +14,7 @@ namespace VisitorServices.ViewModels
         [JsonPropertyName("SmtpServer")]
         public string SmtpServer { get; set; }
         [JsonPropertyName("Port")]
-        public string Port { get; set; }
+        public int Port { get; set; }
         [JsonPropertyName("Username")]
         public string Username { get; set; }
         [JsonPropertyName("Password")]

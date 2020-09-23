@@ -34,6 +34,7 @@ namespace VisitorServices
             
             services.AddScoped<IIdNumberSearchRepository, IdNumberSearchRepository>();
             services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+            services.AddScoped<IEmailRepository, EmailRepository>();
             services.AddScoped<ICenteralDepartmentRepository, CenteralDepartmentRepository>();
             services.AddScoped<IAddVisitorInformationRepository, AddVisitorInformationRepository>();
 
