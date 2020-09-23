@@ -2,8 +2,10 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RequestComponent } from './request/request.component';
 import { Routes ,RouterModule } from '@angular/router';
-import { FormsModule,ReactiveFormsModule } from '@angular/forms'
-import { RequestService } from '../../Services/request.service'
+import { FormsModule,ReactiveFormsModule } from '@angular/forms';
+import { RequestService } from '../../Services/request.service';
+import {DropdownModule} from 'primeng/dropdown';
+
 const routes: Routes = [
   {path:'**' ,component:RequestComponent}
 ]
@@ -15,7 +17,8 @@ const routes: Routes = [
     [RouterModule.forChild(routes)],
     FormsModule,
     ReactiveFormsModule,
-    CommonModule
+    CommonModule,
+    DropdownModule
   ],
   providers:[RequestService]
 })

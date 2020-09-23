@@ -2,6 +2,7 @@ import { UserService } from './../../../Services/user.service';
 import { TokenAndMessageReturn } from './../../../shared/TokenAndMessageReturn';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 
 
@@ -12,24 +13,43 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SearchComponent implements OnInit {
 
-  public IdentificationNum:string=''
   searchForm: FormGroup;
 
-  constructor(private userService: UserService, private fb: FormBuilder) { }
+  constructor(private userService: UserService, private fb: FormBuilder,private router:Router) { }
   
   ngOnInit(): void {
     this.searchForm = this.fb.group({
-      idNumber: [""]
+      idNumber: ['',[Validators.maxLength(14),Validators.minLength(14),Validators.required]]
     })
   }
 
   search() {
     this.userService.GetSearch(this.searchForm.get("idNumber").value).subscribe(
-      (res: TokenAndMessageReturn) => {
-        if(res.statusCode == 200 && !Boolean(localStorage.getItem("token")))
+      (res:TokenAndMessageReturn) => {
+        if(res.statusCode == 200)
+         {
+          console.log(res.message)
           localStorage.setItem('token', res.token);
-      },
-      console.log
+          console.log(res.token);
+          this.router.navigate(['/request'])
+         } 
+        
+       },
+
+       (err)=> {      
+            
+        if(err.error.statusCode == 404)
+        {
+         this.router.navigate(['/register'])
+        } 
+
+        if(err.error.statusCode == 422)
+        {
+          console.log('اطلع بره يبن الكلب '+ err.error.message);
+          
+        } 
+
+      }
     );
   }
 }

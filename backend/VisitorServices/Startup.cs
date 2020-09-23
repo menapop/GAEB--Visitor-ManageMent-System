@@ -31,8 +31,11 @@ namespace VisitorServices
             {
                 config.UseSqlServer(Configuration.GetConnectionString("DefaultConnectionStringNasser"));
             });
-
+            
             services.AddScoped<IIdNumberSearchRepository, IdNumberSearchRepository>();
+            services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+            services.AddScoped<IEmailRepository, EmailRepository>();
+            services.AddScoped<ICenteralDepartmentRepository, CenteralDepartmentRepository>();
             services.AddScoped<IAddVisitorInformationRepository, AddVisitorInformationRepository>();
 
             services.AddAuthentication(config =>

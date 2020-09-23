@@ -59,7 +59,7 @@ namespace VisitorServices.Controllers
                 tokenAndMessageReturn = new TokenAndMessageReturn
                 {
                     Token = null,
-                    Message = "User Is Blocked",
+                    Message = "User Is Blocked because"+userBind.Reason,
                     VisitorInformationForReturn = null,
                     StatusCode = 422
                 };

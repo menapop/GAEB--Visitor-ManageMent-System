@@ -8,7 +8,6 @@ import { AppComponent } from './app.component';
 import { SearchModule } from './Components/search/search.module'
 import { RegisterationModule } from './Components/registeration/registeration.module'
 import { RequestModule } from './Components/request/request.module'
-import { BlackListUsersModule } from './Components/black-list-users/black-list-users.module';
 import { HeaderComponent } from './Components/LayoutComponents/header/header.component';
 import { FooterComponent } from './Components/LayoutComponents/footer/footer.component'
 import {AccordionModule} from 'primeng/accordion' 
@@ -21,13 +20,15 @@ import { InputSwitchModule } from 'primeng/inputswitch';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { FormsModule } from '@angular/forms';
 import { ProgressBarModule } from 'primeng/progressbar';
-import { LookUpService } from './Services/Lookup.service'
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { LookUpService } from './Services/Lookup.service';
+import { MainComponent } from './Components/LayoutComponents/main/main.component'
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     FooterComponent,
+    MainComponent,
   ],
   imports: [
     BrowserModule,
@@ -36,7 +37,6 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
     RegisterationModule,
     RequestModule,
     FormsModule,
-    BlackListUsersModule,
     AccordionModule,
     BrowserAnimationsModule,
     InputTextModule,
@@ -50,7 +50,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
   providers: [
     LookUpService,
     SecuriedPagesGuard,
-    // { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },  
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },  
   ],
   bootstrap: [AppComponent],
   

@@ -1,15 +1,21 @@
-<div class="page-container">
-    <div class="container">
-        <div class="row container-minimize">
-            <div class="col-md-12">
-                <form (ngSubmit)="search()" [formGroup]="searchForm">
-                    <span class="p-input-icon-left idNumber-container">
-                        <i class="pi pi-search" ></i>
-                        <input class="idNumber" formControlName="idNumber" type="text" pInputText  placeholder="الرقم القومي...">         
-                    </span>
-                    <button class="idNumber-submit" pButton type="submit" label="بحث" ></button>
-                </form>
-            </div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <form (ngSubmit)="search()" [formGroup]="searchForm">
+                <span class="p-input-icon-left">
+                <i class="pi pi-search" ></i>
+                <input type="text" formControlName="idNumber"
+                [class.is-valid]="searchForm.controls['idNumber'].valid"
+                [class.is-invalid]="searchForm.controls['idNumber'].invalid &&searchForm.controls['idNumber'].touched"
+                class="form-control"
+                  placeholder="الرقم القومي..."
+                  pInputText>
+                <small id="emailHelpId" 
+                 [hidden]="searchForm.controls['idNumber'].valid||searchForm.controls['idNumber'].untouched"
+                  class="form-text text-danger">من فضلك ادخل الرقم الصحيح</small>
+               </span>
+                <button pButton [disabled]="searchForm.invalid" type="submit" label="بحث" ></button>
+            </form>
         </div>
     </div>
 </div>
