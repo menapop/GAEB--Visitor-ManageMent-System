@@ -11,10 +11,6 @@ const routes: Routes = [
     loadChildren: () => import('./Components/registeration/registeration.module').then(m => m.RegisterationModule)
   },
   {
-    path: 'blacklist',
-    loadChildren: () => import('./Components/black-list-users/black-list-users.module').then(m => m.BlackListUsersModule)
-  },
-  {
     path: 'request',
     loadChildren: () => import('./Components/request/request.module').then(m => m.RequestModule)
   }
