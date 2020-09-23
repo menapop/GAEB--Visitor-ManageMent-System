@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using VisitorServices.Data;
 using VisitorServices.Entities;
+using VisitorServices.ViewModels;
 
 namespace VisitorServices.Repositories
 {
@@ -11,14 +12,14 @@ namespace VisitorServices.Repositories
     {
         private readonly ApplicationDbContext _db;
 
-        public IdNumberSearchRepository(ApplicationDbContext db)
-        {
+        public IdNumberSearchRepository(ApplicationDbContext db) =>
             _db = db;
-        }
-        public VisitorInformation SearchByIdNumber(string idNumber)
-        {
-            var visitor = _db.VisitorInformations.SingleOrDefault(v => v.IdNumber == idNumber);
-            return visitor;
-        }
+
+
+        public VisitorInformation SearchByIdNumber(string idNumber) =>
+            _db.VisitorInformations.SingleOrDefault(v => v.IdNumber == idNumber);
+
+        public BindUser SearchInBindUser(string idNumber, int visitorId) => _db.BindUsers.SingleOrDefault(v => v.VisitorInformationId == visitorId);
+
     }
 }

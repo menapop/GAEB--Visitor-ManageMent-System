@@ -11,6 +11,6 @@ namespace VisitorServices.Repositories
 {
     public interface IAddVisitorInformationRepository
     {
-        VisitorInformation AddVisitorInformation(VisitorInformationViewModel visitorInformation);
+        VisitorInformation AddVisitorInformation(VisitorInformationForCreation visitorInformationViewModel);
     }
 }

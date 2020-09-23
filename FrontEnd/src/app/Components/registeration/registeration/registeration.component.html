@@ -1,0 +1,78 @@
+
+
+<div class="container-fluid bg-primary" id="log">
+    <div class="container text-light  " id="cont">
+      <div class="row" id="rw">
+        <div class="col-lg-6">
+          <form [formGroup]="loginform" (ngSubmit)="addAccount()" class="p-4" id="frm">
+  
+            <div class="form-group">
+              <label for="">الاسم</label>
+              <input type="text" formControlName="UserName" [(ngModel)]="user.name"
+                [class.is-valid]="loginform.controls['UserName'].valid"
+                [class.is-invalid]="loginform.controls['UserName'].invalid &&loginform.controls['UserName'].touched"
+                class="form-control" placeholder="ادخل الاسم...">
+                <small id="emailHelpId" [hidden]="loginform.controls['UserName'].valid||loginform.controls['UserName'].untouched" class="form-text text-danger">Invalid UserName</small>
+            </div>
+  
+            <div class="form-group">
+                <label for="">الرقم القومي</label>
+                <input type="text" formControlName="Idnumber" [(ngModel)]="user.idNumber"
+                  [class.is-valid]="loginform.controls['Idnumber'].valid"
+                  [class.is-invalid]="loginform.controls['Idnumber'].invalid &&loginform.controls['Idnumber'].touched"
+                  class="form-control" placeholder="ادخل الرقم القومي">
+                  <small id="emailHelpId" [hidden]="loginform.controls['Idnumber'].valid||loginform.controls['Idnumber'].untouched" class="form-text text-danger">Invalid UserName</small>
+              </div>
+
+            <div class="form-group">
+              <label for="">ايميل</label>
+              <input type="email"  class="form-control" formControlName="Email" [(ngModel)]="user.email"
+                [class.is-valid]="loginform.controls['Email'].valid"
+                [class.is-invalid]="loginform.controls['Email'].invalid &&loginform.controls['Email'].touched"
+                aria-describedby="emailHelpId" placeholder="ادخل الايميل">
+              <small id="emailHelpId" [hidden]="loginform.controls['Email'].valid||loginform.controls['Email'].untouched" class="form-text text-danger">Invalid Email</small>
+            </div>
+  
+            <div class="form-group">
+              <label for="">رقم الهاتف</label>
+              <input type="text"  class="form-control" formControlName="Phone" [(ngModel)]="user.phone"
+                [class.is-valid]="loginform.controls['Phone'].valid"
+                [class.is-invalid]="loginform.controls['Phone'].invalid &&loginform.controls['Phone'].touched"
+                aria-describedby="phoneHelpId" placeholder="ادخل رقم الهاتف">
+              <small id="phoneHelpId" [hidden]="loginform.controls['Phone'].valid||loginform.controls['Phone'].untouched" class="form-text text-danger">Invalid Phone Number</small>
+            </div>
+  
+            <div class="form-group">
+              <label for="">المحافظه</label>
+              <input type="text" formControlName="governrate" [(ngModel)]="user.governrate"
+                [class.is-valid]="loginform.controls['governrate'].valid"
+                [class.is-invalid]="loginform.controls['governrate'].invalid &&loginform.controls['governrate'].touched"
+                class="form-control"
+                placeholder="ادخل اسم المحافظه">
+                <small id="emailHelpId" [hidden]="loginform.controls['governrate'].valid||loginform.controls['governrate'].untouched" class="form-text text-danger">خطأ</small>
+            </div>
+
+           
+
+            <div class="form-group">
+                <label for="">المركز</label>
+                <input type="text" formControlName="address" [(ngModel)]="user.address"
+                  [class.is-valid]="loginform.controls['address'].valid"
+                  [class.is-invalid]="loginform.controls['address'].invalid &&loginform.controls['address'].touched"
+                  class="form-control" placeholder="ادخل اسم المركز..">
+                  <small id="emailHelpId" [hidden]="loginform.controls['address'].valid||loginform.controls['address'].untouched" class="form-text text-danger">Invalid Password</small>
+              </div>
+
+            <button type="submit" [disabled]="loginform.invalid" class="btn btn-primary">سجل</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <p-dropdown [options]="cities" [(ngModel)]="selectedCity" optionLabel="name"></p-dropdown>
+
+
+
+
+
+
