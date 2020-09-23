@@ -7,6 +7,8 @@ using Dapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Remotion.Linq.Clauses.ResultOperators;
+using VisitorServices.Repositories;
 using VisitorServices.ViewModels;
 
 namespace VisitorServices.Controllers
@@ -15,14 +17,13 @@ namespace VisitorServices.Controllers
     [ApiController]
     public class RequestController : ControllerBase
     {
-        private readonly IConfiguration _configuration;
+        private readonly ICenteralDepartmentRepository _CenteralDepartmentRepository;
+        private readonly IEmployeeRepository _EmployeeRepository;
 
-        string _LookUpsconnectionString, _EmployeeconnectionString;
-        public RequestController(IConfiguration configuration)
+        public RequestController(ICenteralDepartmentRepository CenteralDepartmentRepository, IEmployeeRepository EmployeeRepository)
         {
-            _configuration = configuration;
-            _LookUpsconnectionString = _configuration.GetConnectionString("LookUpsDB");
-            _EmployeeconnectionString= _configuration.GetConnectionString("EmployeeDB");
+            _CenteralDepartmentRepository = CenteralDepartmentRepository;
+            _EmployeeRepository = EmployeeRepository;
         }
         [HttpGet]
         [Route("GetCentralDepartments")]
@@ -30,15 +31,10 @@ namespace VisitorServices.Controllers
         {
             try
             {
-                using (var connection = new SqlConnection(_LookUpsconnectionString))
-                {
-                    connection.Open();
-                    string qr = @" select * from CentralDepartments 
-                       ";
-                    var res = await connection.QueryAsync<CenteralDepartmentViewModel>(qr);
-                    return Ok(res);
+                var res = await  _CenteralDepartmentRepository.GetCenteralDepartments();
+               return Ok(res);
 
-                }
+                
             }
             catch (Exception ex)
             {
@@ -54,23 +50,11 @@ namespace VisitorServices.Controllers
         {
             try
             {
-                using (var connection = new SqlConnection(_EmployeeconnectionString))
-                {
-                    connection.Open();
-                    string qr = @" select EmployeeNumber, EmployeeName from employeedata 
-                       where CentralAdministration=@CentralAdministration ";
-                    var dictionary = new Dictionary<string, object>
-                {
-                     {
-                        "@CentralAdministration", code
-                     },
+                var res = await _EmployeeRepository.GetEmployeesByCenteralDepartment(code);
 
-                };
-                    var parameters = new DynamicParameters(dictionary);
-                    var res = await connection.QueryAsync<EmployeeViewModel>(qr,parameters);
-                    return Ok(res);
+                return Ok(res);
 
-                }
+
             }
             catch (Exception ex)
             {
@@ -87,23 +71,8 @@ namespace VisitorServices.Controllers
         {
             try
             {
-                using (var connection = new SqlConnection(_EmployeeconnectionString))
-                {
-                    connection.Open();
-                    string qr = @" select  Email from employeedata 
-                       where EmployeeNumber=@EmployeeNumber ";
-                    var dictionary = new Dictionary<string, object>
-                {
-                     {
-                        "@EmployeeNumber", EmployeeNumber
-                     },
-
-                };
-                    var parameters = new DynamicParameters(dictionary);
-                    var res = await connection.QuerySingleAsync(qr, parameters);
-                    return Ok(res);
-
-                }
+                var res = await _EmployeeRepository.GetEmployeeEmailByEmployeeNumber(EmployeeNumber);
+                return Ok(res);
             }
             catch (Exception ex)
             {

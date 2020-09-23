@@ -34,8 +34,9 @@ namespace VisitorServices
             {
                 config.UseSqlServer(Configuration.GetConnectionString("DefaultConnectionString"));
             });
-
+            
             services.AddScoped<IIdNumberSearchRepository, IdNumberSearchRepository>();
+            services.AddScoped<ICenteralDepartmentRepository, CenteralDepartmentRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
