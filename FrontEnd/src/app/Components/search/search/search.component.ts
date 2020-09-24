@@ -3,7 +3,7 @@ import { TokenAndMessageReturn } from './../../../shared/TokenAndMessageReturn';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 
 @Component({
@@ -30,8 +30,22 @@ export class SearchComponent implements OnInit {
          {
           console.log(res.message)
           localStorage.setItem('token', res.token);
+         
           console.log(res.token);
           this.router.navigate(['/request'])
+
+          const helper = new JwtHelperService();
+
+          const decodedToken = helper.decodeToken(res.token);
+          
+          console.log("hiiiiiiiiiiiii"+ decodedToken['nameid']);
+          localStorage.setItem('nameid',decodedToken['nameid']);
+            // let JWTData=res['token'].split('.')[1];
+            // let DecodedJWTJsonData=window.atob(JWTData);
+            // let Decodeddata = JSON.parse(DecodedJWTJsonData);
+
+            // console.log("hiiiiiiiiiiiii22"+Decodeddata);
+
          } 
         
        },

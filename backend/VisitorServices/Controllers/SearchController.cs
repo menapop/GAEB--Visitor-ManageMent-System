@@ -71,6 +71,7 @@ namespace VisitorServices.Controllers
                 var claims = new[]
                 {
                     new Claim(JwtRegisteredClaimNames.Sub, idNumber),
+                     new Claim(JwtRegisteredClaimNames.NameId, visitor.Id.ToString()),
                 };
 
                 var secretBytes = Encoding.UTF8.GetBytes(_config["Jwt:secret"]);

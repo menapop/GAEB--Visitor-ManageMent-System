@@ -17,7 +17,7 @@ namespace VisitorServices.Repositories
 
 
         public VisitorInformation SearchByIdNumber(string idNumber) =>
-            _db.VisitorInformations.SingleOrDefault(v => v.IdNumber == idNumber);
+            _db.VisitorInformations.FirstOrDefault(v => v.IdNumber == idNumber);
 
         public BindUser SearchInBindUser(string idNumber, int visitorId) => _db.BindUsers.SingleOrDefault(v => v.VisitorInformationId == visitorId);
 

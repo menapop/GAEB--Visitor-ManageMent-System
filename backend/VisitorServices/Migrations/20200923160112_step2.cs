@@ -1,0 +1,46 @@
+﻿using System;
+using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
+
+namespace VisitorServices.Migrations
+{
+    public partial class step2 : Migration
+    {
+        protected override void Up(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.CreateTable(
+                name: "Mails",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    MailSubject = table.Column<string>(nullable: true),
+                    MailMessage = table.Column<string>(nullable: true),
+                    EmployeeNumber = table.Column<int>(nullable: false),
+                    VisitorId = table.Column<int>(nullable: false),
+                    SendTime = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Mails", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Mails_VisitorInformations_VisitorId",
+                        column: x => x.VisitorId,
+                        principalTable: "VisitorInformations",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Mails_VisitorId",
+                table: "Mails",
+                column: "VisitorId");
+        }
+
+        protected override void Down(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.DropTable(
+                name: "Mails");
+        }
+    }
+}

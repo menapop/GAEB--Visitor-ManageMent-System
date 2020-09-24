@@ -9,5 +9,6 @@ namespace VisitorServices.ViewModels
     {
         public int EmployeeNumber { get; set; }
         public string EmployeeName { get; set; }
+
     }
 }
