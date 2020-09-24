@@ -48,7 +48,7 @@ namespace VisitorServices.Repositories
             SmtpClient client = new SmtpClient();
 
 
-           await client.ConnectAsync(mailconfig.SmtpServer, mailconfig.Port, false);
+           await client.ConnectAsync(mailconfig.SmtpServer, mailconfig.Port, true);
 
             await client.AuthenticateAsync(mailconfig.Username, mailconfig.Password);
 
