@@ -7,18 +7,18 @@
   
             <div class="form-group">
               <label for="">الفرع</label>
-                <p-dropdown [options]="Branches"  (onChange)="onChange($event)" [(ngModel)]="request.branch"  formControlName="Branch"   optionLabel="name"></p-dropdown>
+                <p-dropdown [options]="Branches"  (onChange)="onChange($event)"   formControlName="Branch"   optionLabel="name"></p-dropdown>
               </div>
 
                 <div class="form-group">
                 <label for="">الجهة</label>
-                  <p-dropdown [options]="Directions"  (onChange)="onChange2($event)" [(ngModel)]="request.direction"  formControlName="Direction"   optionLabel="name"></p-dropdown>
+                  <p-dropdown [options]="Directions"  (onChange)="onChange2($event)"   formControlName="Direction"   optionLabel="name"></p-dropdown>
                 </div>
 
 
               <div class="form-group">
               <label for="">الموظف</label>
-                <p-dropdown [options]="Employees"  (onChange)="onChange2($event)" [(ngModel)]="request.empId"  formControlName="Employee"   optionLabel="employeeName"></p-dropdown>
+                <p-dropdown [options]="Employees"  (onChange)="onChange3($event)"   formControlName="Employee"   optionLabel="employeeName"></p-dropdown>
               </div>
 
 

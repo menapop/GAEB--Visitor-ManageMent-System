@@ -8,8 +8,8 @@ namespace VisitorServices.ViewModels
     public class SendEmailViewModel
     {
         public int empId { get; set; }
+        public string body { get; set; }
         public string subject { get; set; }
-        public string reason { get; set; }
 
         public int visitorId { get; set; }
 

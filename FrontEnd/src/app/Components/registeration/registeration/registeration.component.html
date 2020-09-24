@@ -115,7 +115,6 @@
             <p-dropdown
               [options]="cities"
               (onChange)="onChange($event)"
-              [(ngModel)]="user.governrate"
               formControlName="governrate"
               optionLabel="name"
             ></p-dropdown>
@@ -125,7 +124,7 @@
             <label for="">المركز</label>
             <p-dropdown
               [options]="FilterdVillages"
-              [(ngModel)]="user.address"
+              (onChange)="onChange2($event)"
               formControlName="address"
               optionLabel="name"
             ></p-dropdown>

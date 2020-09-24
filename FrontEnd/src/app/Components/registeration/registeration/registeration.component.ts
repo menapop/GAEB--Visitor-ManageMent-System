@@ -55,8 +55,14 @@ export class RegisterationComponent implements OnInit ,OnDestroy{
     console.log('event :' + event);
     console.log(event.value);
     this.filteredVillages(event.value.code)
+    this.user.governrate=event.value.name;
 }
 
+onChange2(event) {
+  console.log('event :' + event);
+  console.log(event.value);
+  this.user.address=event.value.name
+}
   
 
   getAddresses()

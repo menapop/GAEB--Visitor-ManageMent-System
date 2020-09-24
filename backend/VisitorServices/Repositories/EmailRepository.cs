@@ -40,7 +40,7 @@ namespace VisitorServices.Repositories
 
             BodyBuilder bodyBuilder = new BodyBuilder();
            
-            bodyBuilder.TextBody = email.reason;
+            bodyBuilder.TextBody = email.body;
 
             message.Body = bodyBuilder.ToMessageBody();
 
@@ -48,17 +48,17 @@ namespace VisitorServices.Repositories
             SmtpClient client = new SmtpClient();
 
 
-            client.Connect(mailconfig.SmtpServer, mailconfig.Port, false);
+           await client.ConnectAsync(mailconfig.SmtpServer, mailconfig.Port, true);
 
-            client.Authenticate(mailconfig.Username, mailconfig.Password);
+            await client.AuthenticateAsync(mailconfig.Username, mailconfig.Password);
 
-            client.Send(message);
-            client.Disconnect(true);
-            client.Dispose();
+            await client.SendAsync(message);
+            await client.DisconnectAsync(true);
+             client.Dispose();
             var mail = new Mails
             {
                 EmployeeNumber=email.empId,
-                MailMessage=email.reason,
+                MailMessage=email.body,
                 MailSubject= email.subject,
                 VisitorId=email.visitorId,
                 SendTime=DateTime.Now
