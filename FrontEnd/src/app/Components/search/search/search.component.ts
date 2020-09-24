@@ -4,8 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
-
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
@@ -15,13 +14,18 @@ export class SearchComponent implements OnInit {
 
   searchForm: FormGroup;
 
-  constructor(private userService: UserService, private fb: FormBuilder,private router:Router) { }
+  constructor(private userService: UserService, private fb: FormBuilder,private router:Router,private toasterSRV:ToastrService) { }
   
   ngOnInit(): void {
     this.searchForm = this.fb.group({
       idNumber: ['',[Validators.maxLength(14),Validators.minLength(14),Validators.required]]
     })
   }
+
+  showToaster(){
+    this.toasterSRV.error("Hello, I'm the toastr message.")
+    this.toasterSRV.warning("dsfdfdfds")
+}
 
   search() {
     this.userService.GetSearch(this.searchForm.get("idNumber").value).subscribe(
@@ -59,8 +63,7 @@ export class SearchComponent implements OnInit {
 
         if(err.error.statusCode == 422)
         {
-          console.log('اطلع بره يبن الكلب '+ err.error.message);
-          
+          this.showToaster()  
         } 
 
       }

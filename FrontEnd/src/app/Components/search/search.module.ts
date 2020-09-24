@@ -7,6 +7,8 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import {CalendarModule} from 'primeng/calendar';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
+import { ToastrModule } from 'ngx-toastr';
+
 const routes: Routes = [
   {path:'**' ,component:SearchComponent}
 ]
@@ -19,8 +21,14 @@ const routes: Routes = [
     CalendarModule,
     FormsModule,
     ButtonModule,
+ 
     [RouterModule.forChild(routes)],
     CommonModule,
+    ToastrModule.forRoot({
+      timeOut: 10000,
+      positionClass: 'toast-bottom-right',
+      toastClass: 'toast toast-bootstrap-compatibility-fix'
+    }),
     ReactiveFormsModule
   ],
   providers: []

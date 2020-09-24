@@ -22,7 +22,8 @@ import { FormsModule } from '@angular/forms';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LookUpService } from './Services/Lookup.service';
-import { MainComponent } from './Components/LayoutComponents/main/main.component'
+import { MainComponent } from './Components/LayoutComponents/main/main.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,6 +47,7 @@ import { MainComponent } from './Components/LayoutComponents/main/main.component
     InputSwitchModule,
     InputNumberModule,
     ProgressBarModule,
+    
   ],
   providers: [
     LookUpService,
