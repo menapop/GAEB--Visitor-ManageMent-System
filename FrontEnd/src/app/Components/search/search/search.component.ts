@@ -23,8 +23,8 @@ export class SearchComponent implements OnInit {
   }
 
   showToaster(){
-    this.toasterSRV.error("Hello, I'm the toastr message.")
-    this.toasterSRV.warning("dsfdfdfds")
+    this.toasterSRV.error("عزرا, لايمكنكم استخدام هذا التطبيق حاليا يرجي التوجه لاقرب فرع")
+  
 }
 
   search() {

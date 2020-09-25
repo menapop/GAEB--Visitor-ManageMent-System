@@ -24,19 +24,11 @@ const routes: Routes = [
  
     [RouterModule.forChild(routes)],
     CommonModule,
-    ToastrModule.forRoot({
-      timeOut: 1000000, enableHtml: true,
-      positionClass: 'toast-top-right',
-      progressBar:true,
-      toastClass: 'toast toast-bootstrap-compatibility-fix',
+    ToastrModule.forRoot(
+    {
       closeButton: true,
-      iconClasses : {
-        error: 'toast-error',
-        info: 'toast-info',
-        success: 'toast-success',
-        warning: 'toast-warning',
-      }
-    }),
+    }
+    ),
     ReactiveFormsModule
   ],
   providers: []
